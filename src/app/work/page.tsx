@@ -2,7 +2,6 @@ import { BlurFade } from "@/components/ui/blur-fade";
 import { CardHoverEffect, type HoverCardItem } from "@/components/ui/card-hover-effect";
 import { Footer } from "@/components/sections/footer";
 import { projects } from "@/data/projects";
-import Image from "next/image";
 
 export default function WorkPage() {
   const items: HoverCardItem[] = projects.map((project) => ({
@@ -10,11 +9,9 @@ export default function WorkPage() {
     content: (
       <div>
         <div className="aspect-video overflow-hidden rounded-lg bg-background">
-          <Image
+          <img
             src={project.image}
             alt={project.title}
-            width={600}
-            height={400}
             className="h-full w-full object-cover"
           />
         </div>

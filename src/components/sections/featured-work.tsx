@@ -3,7 +3,7 @@
 import { BlurFade } from "@/components/ui/blur-fade";
 import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 import { projects } from "@/data/projects";
-import Image from "next/image";
+
 import Link from "next/link";
 
 export function FeaturedWork() {
@@ -52,11 +52,9 @@ export function FeaturedWork() {
                     </div>
                   }
                 >
-                  <Image
+                  <img
                     src={project.image}
                     alt={project.title}
-                    width={600}
-                    height={400}
                     className="h-full w-full object-cover"
                   />
                 </CanvasRevealEffect>

@@ -18,6 +18,13 @@ interface Beam {
   speed: number;
 }
 
+function hexToRgb(hex: string): [number, number, number] {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
+    : [0, 212, 255];
+}
+
 interface AnimatedBeamNetworkProps {
   className?: string;
   nodeCount?: number;
@@ -78,6 +85,8 @@ export function AnimatedBeamNetwork({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const [r, g, b] = hexToRgb(accentColor);
+
     function resize() {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas!.getBoundingClientRect();
@@ -102,6 +111,8 @@ export function AnimatedBeamNetwork({
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
 
+    const beamMap = new Map<string, Beam>();
+
     function render() {
       const rect = canvas!.getBoundingClientRect();
       const w = rect.width;
@@ -109,7 +120,6 @@ export function AnimatedBeamNetwork({
       ctx!.clearRect(0, 0, w, h);
 
       const nodes = nodesRef.current;
-      const beams = beamsRef.current;
       const mouse = mouseRef.current;
 
       for (const node of nodes) {
@@ -132,27 +142,35 @@ export function AnimatedBeamNetwork({
         node.y = Math.max(0, Math.min(h, node.y));
       }
 
-      beamsRef.current = [];
+      const activeKeys = new Set<string>();
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < connectionDistance) {
-            const existing = beams.find(
-              (b) =>
-                (b.from === i && b.to === j) || (b.from === j && b.to === i)
-            );
-            beamsRef.current.push(
-              existing
-                ? { ...existing, progress: (existing.progress + existing.speed) % 1 }
-                : { from: i, to: j, progress: Math.random(), speed: Math.random() * 0.003 + 0.001 }
-            );
+            const key = `${i}-${j}`;
+            activeKeys.add(key);
+            const existing = beamMap.get(key);
+            if (existing) {
+              existing.progress = (existing.progress + existing.speed) % 1;
+            } else {
+              beamMap.set(key, {
+                from: i,
+                to: j,
+                progress: Math.random(),
+                speed: Math.random() * 0.003 + 0.001,
+              });
+            }
           }
         }
       }
 
-      for (const beam of beamsRef.current) {
+      for (const key of beamMap.keys()) {
+        if (!activeKeys.has(key)) beamMap.delete(key);
+      }
+
+      for (const beam of beamMap.values()) {
         const from = nodes[beam.from];
         const to = nodes[beam.to];
         const dx = from.x - to.x;
@@ -163,15 +181,15 @@ export function AnimatedBeamNetwork({
         ctx!.beginPath();
         ctx!.moveTo(from.x, from.y);
         ctx!.lineTo(to.x, to.y);
-        ctx!.strokeStyle = `rgba(0, 212, 255, ${opacity * 0.15})`;
+        ctx!.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.15})`;
         ctx!.lineWidth = 0.5;
         ctx!.stroke();
 
         const px = from.x + (to.x - from.x) * beam.progress;
         const py = from.y + (to.y - from.y) * beam.progress;
         const gradient = ctx!.createRadialGradient(px, py, 0, px, py, 8);
-        gradient.addColorStop(0, `rgba(0, 212, 255, ${opacity * 0.8})`);
-        gradient.addColorStop(1, "rgba(0, 212, 255, 0)");
+        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${opacity * 0.8})`);
+        gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
         ctx!.beginPath();
         ctx!.arc(px, py, 8, 0, Math.PI * 2);
         ctx!.fillStyle = gradient;
@@ -188,8 +206,8 @@ export function AnimatedBeamNetwork({
           node.x, node.y, 0,
           node.x, node.y, node.radius * 4
         );
-        glow.addColorStop(0, `rgba(0, 212, 255, 0.3)`);
-        glow.addColorStop(1, "rgba(0, 212, 255, 0)");
+        glow.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.3)`);
+        glow.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
         ctx!.beginPath();
         ctx!.arc(node.x, node.y, node.radius * 4, 0, Math.PI * 2);
         ctx!.fillStyle = glow;

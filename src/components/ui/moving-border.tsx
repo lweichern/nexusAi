@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useAnimationFrame } from "framer-motion";
+import { useId, useRef } from "react";
+import { useAnimationFrame } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface MovingBorderProps {
@@ -21,7 +21,8 @@ export function MovingBorder({
   borderClassName,
   as: Component = "div",
 }: MovingBorderProps) {
-  const pathRef = useRef<SVGRectElement>(null);
+  const gradientId = useId();
+  const pathRef = useRef<SVGPathElement>(null);
   const progressRef = useRef(0);
   const circleRef = useRef<SVGCircleElement>(null);
 
@@ -30,8 +31,10 @@ export function MovingBorder({
     const circle = circleRef.current;
     if (!path || !circle) return;
 
-    progressRef.current = (time % duration) / duration;
     const length = path.getTotalLength();
+    if (length === 0) return;
+
+    progressRef.current = (time % duration) / duration;
     const point = path.getPointAtLength(progressRef.current * length);
 
     circle.setAttribute("cx", String(point.x));
@@ -51,25 +54,20 @@ export function MovingBorder({
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
         >
-          <rect
+          <path
             ref={pathRef}
-            x="0"
-            y="0"
-            width="100"
-            height="100"
+            d="M8,0 H92 A8,8 0 0,1 100,8 V92 A8,8 0 0,1 92,100 H8 A8,8 0 0,1 0,92 V8 A8,8 0 0,1 8,0 Z"
             fill="none"
             className="invisible"
-            rx="8"
-            ry="8"
           />
           <circle
             ref={circleRef}
             r="15"
-            fill="url(#moving-border-gradient)"
+            fill={`url(#${gradientId})`}
             className={cn(borderClassName)}
           />
           <defs>
-            <radialGradient id="moving-border-gradient">
+            <radialGradient id={gradientId}>
               <stop offset="0%" stopColor="var(--color-accent)" />
               <stop
                 offset="100%"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface InfiniteMovingCardsProps {
@@ -19,30 +19,17 @@ export function InfiniteMovingCards({
   className,
 }: InfiniteMovingCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollerRef = useRef<HTMLUListElement>(null);
-  const [started, setStarted] = useState(false);
+  const duplicatedItems = useMemo(() => [...items, ...items], [items]);
 
   useEffect(() => {
-    if (!scrollerRef.current || !containerRef.current || started) return;
-
-    const scrollerContent = Array.from(scrollerRef.current.children);
-    scrollerContent.forEach((item) => {
-      const clone = item.cloneNode(true);
-      scrollerRef.current!.appendChild(clone);
-    });
-
+    if (!containerRef.current) return;
     const speedMap = { fast: "20s", normal: "40s", slow: "60s" };
-    containerRef.current.style.setProperty(
-      "--animation-duration",
-      speedMap[speed]
-    );
+    containerRef.current.style.setProperty("--animation-duration", speedMap[speed]);
     containerRef.current.style.setProperty(
       "--animation-direction",
       direction === "left" ? "forwards" : "reverse"
     );
-
-    setStarted(true);
-  }, [direction, speed, started]);
+  }, [direction, speed]);
 
   return (
     <div
@@ -53,15 +40,13 @@ export function InfiniteMovingCards({
       )}
     >
       <ul
-        ref={scrollerRef}
         className={cn(
-          "flex w-max shrink-0 gap-8 py-4",
-          started && "animate-[scroll_var(--animation-duration)_linear_infinite_var(--animation-direction)]",
+          "flex w-max shrink-0 gap-8 py-4 animate-[scroll_var(--animation-duration)_linear_infinite_var(--animation-direction)]",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item) => (
-          <li key={item.id} className="flex-shrink-0">
+        {duplicatedItems.map((item, idx) => (
+          <li key={`${item.id}-${idx}`} className="shrink-0">
             {item.content}
           </li>
         ))}

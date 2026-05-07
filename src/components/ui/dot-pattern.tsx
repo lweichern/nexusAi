@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface DotPatternProps {
@@ -17,7 +20,7 @@ export function DotPattern({
   cy = 1,
   cr = 1,
 }: DotPatternProps) {
-  const id = `dot-pattern-${width}-${height}`;
+  const id = useId();
   return (
     <svg
       className={cn(

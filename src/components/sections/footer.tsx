@@ -21,7 +21,7 @@ export function Footer() {
             NexusAI
           </span>
         </div>
-        <nav className="flex gap-6">
+        <nav aria-label="Footer navigation" className="flex gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -44,7 +44,7 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto mt-8 max-w-6xl text-center text-xs text-muted">
+      <div suppressHydrationWarning className="mx-auto mt-8 max-w-6xl text-center text-xs text-muted">
         &copy; {new Date().getFullYear()} NexusAI. All rights reserved.
       </div>
     </footer>
