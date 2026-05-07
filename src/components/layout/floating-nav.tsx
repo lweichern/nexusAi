@@ -1,6 +1,10 @@
 "use client";
 
-import { FloatingDock, type DockItem } from "@/components/ui/floating-dock";
+import {
+  FloatingDock,
+  FloatingDockMobile,
+  type DockItem,
+} from "@/components/ui/floating-dock";
 
 const navItems: DockItem[] = [
   {
@@ -44,7 +48,12 @@ const navItems: DockItem[] = [
 export function FloatingNav() {
   return (
     <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
-      <FloatingDock items={navItems} />
+      <div className="hidden md:block">
+        <FloatingDock items={navItems} />
+      </div>
+      <div className="md:hidden">
+        <FloatingDockMobile items={navItems} />
+      </div>
     </div>
   );
 }

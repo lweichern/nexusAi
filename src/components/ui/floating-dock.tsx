@@ -77,3 +77,20 @@ function DockIcon({
     </Link>
   );
 }
+
+interface FloatingDockMobileProps {
+  items: DockItem[];
+  className?: string;
+}
+
+export function FloatingDockMobile({ items, className }: FloatingDockMobileProps) {
+  return (
+    <div className={cn("flex h-12 items-center gap-4 rounded-full border border-card-border bg-card/90 px-6 backdrop-blur-md", className)}>
+      {items.map((item) => (
+        <Link key={item.title} href={item.href} className="flex h-8 w-8 items-center justify-center text-muted transition-colors hover:text-foreground">
+          {item.icon}
+        </Link>
+      ))}
+    </div>
+  );
+}
