@@ -1,0 +1,32 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/><stop offset="100%" stop-color="#0a0d14"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg5)"/>
+  <!-- Dashboard layout -->
+  <rect x="40" y="40" width="520" height="320" rx="8" fill="none" stroke="#222" stroke-width="1"/>
+  <line x1="40" y1="80" x2="560" y2="80" stroke="#222" stroke-width="1"/>
+  <!-- Top bar dots -->
+  <circle cx="60" cy="60" r="5" fill="#333"/><circle cx="78" cy="60" r="5" fill="#333"/><circle cx="96" cy="60" r="5" fill="#333"/>
+  <!-- Bar chart -->
+  <g fill="#00d4ff" opacity="0.4">
+    <rect x="80" y="240" width="30" height="100" rx="2"/>
+    <rect x="130" y="200" width="30" height="140" rx="2"/>
+    <rect x="180" y="260" width="30" height="80" rx="2"/>
+    <rect x="230" y="160" width="30" height="180" rx="2"/>
+    <rect x="280" y="180" width="30" height="160" rx="2"/>
+    <rect x="330" y="140" width="30" height="200" rx="2"/>
+    <rect x="380" y="120" width="30" height="220" rx="2"/>
+  </g>
+  <!-- Trend line -->
+  <polyline points="95,230 145,190 195,250 245,150 295,170 345,130 395,110" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.8"/>
+  <!-- Side panel -->
+  <rect x="440" y="100" width="100" height="240" rx="4" fill="none" stroke="#222" stroke-width="0.5"/>
+  <g fill="#333" font-family="monospace" font-size="8">
+    <text x="455" y="130">Users: 24.5K</text><text x="455" y="160">Conv: 3.2%</text>
+    <text x="455" y="190">Rev: $142K</text><text x="455" y="220">MRR: $48K</text>
+  </g>
+  <text x="300" y="380" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="14" opacity="0.6">EchoAnalytics</text>
+</svg>

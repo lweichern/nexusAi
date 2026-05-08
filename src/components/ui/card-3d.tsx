@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, type MouseEvent } from "react";
+import { useState, useRef, useCallback, type MouseEvent, type TouchEvent } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -19,17 +19,26 @@ export function Card3DContainer({
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
 
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
+  const updateRotation = useCallback((clientX: number, clientY: number) => {
     if (!containerRef.current) return;
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 20;
-    const y = (e.clientY - top - height / 2) / 20;
+    const x = (clientX - left - width / 2) / 20;
+    const y = (clientY - top - height / 2) / 20;
     setRotateX(-y);
     setRotateY(x);
+  }, []);
+
+  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
+    updateRotation(e.clientX, e.clientY);
   }
 
-  function handleMouseLeave() {
+  function handleTouchMove(e: TouchEvent<HTMLDivElement>) {
+    const touch = e.touches[0];
+    if (touch) updateRotation(touch.clientX, touch.clientY);
+  }
+
+  function handleReset() {
     setRotateX(0);
     setRotateY(0);
   }
@@ -42,7 +51,9 @@ export function Card3DContainer({
       <motion.div
         ref={containerRef}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleReset}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleReset}
         animate={{ rotateX, rotateY }}
         transition={{ type: "spring", stiffness: 260, damping: 20, mass: 0.5 }}
         style={{ transformStyle: "preserve-3d" }}

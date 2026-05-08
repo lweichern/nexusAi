@@ -23,7 +23,7 @@ export default function ContactPage() {
           <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2">
             <BlurFade>
               <div>
-                <h1 className="text-4xl font-bold md:text-6xl">
+                <h1 className="text-3xl font-bold sm:text-4xl md:text-6xl">
                   Let&apos;s Talk
                 </h1>
                 <p className="mt-4 max-w-md text-lg text-muted">
@@ -50,9 +50,9 @@ export default function ContactPage() {
                       Social
                     </p>
                     <div className="mt-1 flex gap-4 text-sm text-muted">
-                      <a href="#" className="hover:text-foreground transition-colors">GitHub</a>
-                      <a href="#" className="hover:text-foreground transition-colors">X</a>
-                      <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
+                      <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
+                      <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">X</a>
+                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">LinkedIn</a>
                     </div>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ export default function ContactPage() {
                       name="name"
                       type="text"
                       required
-                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-base text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                       placeholder="Your name"
                     />
                   </div>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                       name="email"
                       type="email"
                       required
-                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-base text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                       placeholder="you@company.com"
                     />
                   </div>
@@ -122,7 +122,7 @@ export default function ContactPage() {
                       id="company"
                       name="company"
                       type="text"
-                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-base text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                       placeholder="Your company"
                     />
                   </div>
@@ -136,7 +136,7 @@ export default function ContactPage() {
                     <select
                       id="service"
                       name="service"
-                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                      className="mt-1 block w-full rounded-lg border border-card-border bg-background px-4 py-2.5 text-base text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                     >
                       <option value="">Select a service</option>
                       <option value="ai">AI Solutions</option>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                       name="message"
                       required
                       rows={5}
-                      className="mt-1 block w-full resize-none rounded-lg border border-card-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                      className="mt-1 block w-full resize-none rounded-lg border border-card-border bg-background px-4 py-2.5 text-base text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                       placeholder="Tell us about your project..."
                     />
                   </div>

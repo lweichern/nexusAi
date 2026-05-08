@@ -91,10 +91,10 @@ export function FloatingDockMobile({ items, className }: FloatingDockMobileProps
   return (
     <nav
       aria-label="Main navigation"
-      className={cn("flex h-12 items-center gap-4 rounded-full border border-card-border bg-card/90 px-6 backdrop-blur-md", className)}
+      className={cn("flex h-14 items-center gap-5 rounded-full border border-card-border bg-card/90 px-7 backdrop-blur-md", className)}
     >
       {items.map((item) => (
-        <Link key={item.title} href={item.href} aria-label={item.title} className="flex h-8 w-8 items-center justify-center text-muted transition-colors hover:text-foreground">
+        <Link key={item.title} href={item.href} aria-label={item.title} className="flex h-10 w-10 items-center justify-center text-muted transition-colors hover:text-foreground">
           <span aria-hidden="true">{item.icon}</span>
         </Link>
       ))}

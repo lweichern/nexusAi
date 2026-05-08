@@ -99,20 +99,29 @@ export function CanvasRevealEffect({
     };
   }, [dotSize, dotGap, colors, animationSpeed]);
 
+  function activate(clientX: number, clientY: number) {
+    const rect = containerRef.current!.getBoundingClientRect();
+    centerRef.current = { x: clientX - rect.left, y: clientY - rect.top };
+    isHoveredRef.current = true;
+    setIsHovered(true);
+  }
+
+  function deactivate() {
+    isHoveredRef.current = false;
+    setIsHovered(false);
+  }
+
   return (
     <div
       ref={containerRef}
       className={cn("relative overflow-hidden", className)}
-      onMouseEnter={(e) => {
-        const rect = containerRef.current!.getBoundingClientRect();
-        centerRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-        isHoveredRef.current = true;
-        setIsHovered(true);
+      onMouseEnter={(e) => activate(e.clientX, e.clientY)}
+      onMouseLeave={deactivate}
+      onTouchStart={(e) => {
+        const touch = e.touches[0];
+        if (touch) activate(touch.clientX, touch.clientY);
       }}
-      onMouseLeave={() => {
-        isHoveredRef.current = false;
-        setIsHovered(false);
-      }}
+      onTouchEnd={deactivate}
     >
       {children}
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />

@@ -1,0 +1,28 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/><stop offset="100%" stop-color="#0a1114"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg3)"/>
+  <!-- ECG line -->
+  <polyline points="0,200 80,200 100,200 120,200 140,180 150,240 160,140 170,260 180,200 200,200 280,200 300,200 320,200 340,180 350,240 360,140 370,260 380,200 400,200 480,200 500,200 520,200 540,180 550,240 560,140 570,260 580,200 600,200" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+  <!-- Brain scan circles -->
+  <circle cx="300" cy="160" r="80" fill="none" stroke="#00d4ff" stroke-width="0.8" opacity="0.3"/>
+  <circle cx="300" cy="160" r="60" fill="none" stroke="#00d4ff" stroke-width="0.5" opacity="0.2"/>
+  <circle cx="300" cy="160" r="40" fill="none" stroke="#00d4ff" stroke-width="0.5" opacity="0.15"/>
+  <!-- Neural connections -->
+  <g stroke="#00d4ff" stroke-width="0.5" opacity="0.3">
+    <line x1="270" y1="130" x2="320" y2="150"/><line x1="280" y1="180" x2="330" y2="140"/>
+    <line x1="260" y1="160" x2="310" y2="190"/><line x1="290" y1="120" x2="340" y2="170"/>
+  </g>
+  <g fill="#00d4ff" opacity="0.4">
+    <circle cx="270" cy="130" r="3"/><circle cx="320" cy="150" r="3"/><circle cx="280" cy="180" r="3"/>
+    <circle cx="330" cy="140" r="3"/><circle cx="260" cy="160" r="3"/><circle cx="310" cy="190" r="3"/>
+  </g>
+  <!-- Data readouts -->
+  <g fill="#333" font-family="monospace" font-size="9">
+    <text x="80" y="300">HR: 72 bpm</text><text x="250" y="300">SpO2: 98%</text><text x="420" y="300">BP: 120/80</text>
+  </g>
+  <text x="300" y="350" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="14" opacity="0.6">SynapseHealth</text>
+</svg>

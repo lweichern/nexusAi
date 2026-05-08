@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, type ReactNode } from "react";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export interface StickyScrollItem {
   title: string;
-  description: React.ReactNode;
-  content: React.ReactNode;
+  description: ReactNode;
+  content: ReactNode;
 }
 
 interface StickyScrollRevealProps {
@@ -26,50 +26,101 @@ export function StickyScrollReveal({
   });
 
   return (
-    <div ref={containerRef} className={cn("relative", className)}>
-      {items.map((item, index) => (
-        <StickyItem
-          key={item.title}
-          item={item}
-          index={index}
-          total={items.length}
-          progress={scrollYProgress}
-        />
-      ))}
+    <div className={cn(className)}>
+      {/* Mobile: stacked layout */}
+      <div className="space-y-16 px-6 lg:hidden">
+        {items.map((item) => (
+          <div key={item.title}>
+            <h3 className="text-2xl font-bold">{item.title}</h3>
+            <div className="mt-4 text-muted">{item.description}</div>
+            <div className="mt-6">{item.content}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: sticky scroll reveal */}
+      <div
+        ref={containerRef}
+        className="relative hidden lg:block"
+        style={{ height: `${(items.length + 1) * 100}vh` }}
+      >
+        <div className="sticky top-0 flex h-screen w-full items-center overflow-hidden">
+          <div className="mx-auto flex w-full max-w-6xl items-start gap-20 px-6">
+            <div className="relative flex-1">
+              {items.map((item, index) => (
+                <ScrollPanel
+                  key={item.title}
+                  index={index}
+                  total={items.length}
+                  progress={scrollYProgress}
+                >
+                  <h3 className="text-4xl font-bold">{item.title}</h3>
+                  <div className="mt-4 text-lg text-muted">
+                    {item.description}
+                  </div>
+                </ScrollPanel>
+              ))}
+            </div>
+            <div className="relative flex-1">
+              {items.map((item, index) => (
+                <ScrollPanel
+                  key={`visual-${item.title}`}
+                  index={index}
+                  total={items.length}
+                  progress={scrollYProgress}
+                >
+                  {item.content}
+                </ScrollPanel>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-function StickyItem({
-  item,
+function ScrollPanel({
+  children,
   index,
   total,
   progress,
 }: {
-  item: StickyScrollItem;
+  children: ReactNode;
   index: number;
   total: number;
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  progress: MotionValue<number>;
 }) {
   const start = index / total;
   const end = (index + 1) / total;
+  const fade = 0.02;
 
-  const opacity = useTransform(progress, [start, start + 0.1, end - 0.1, end], [0, 1, 1, index === total - 1 ? 1 : 0]);
-  const scale = useTransform(progress, [start, start + 0.05], [0.95, 1]);
+  const opacity = useTransform(
+    progress,
+    index === 0
+      ? [end - fade, end]
+      : index === total - 1
+        ? [start, start + fade]
+        : [start, start + fade, end - fade, end],
+    index === 0
+      ? [1, 0]
+      : index === total - 1
+        ? [0, 1]
+        : [0, 1, 1, 0]
+  );
+
+  const y = useTransform(
+    progress,
+    index === 0 ? [end - fade, end] : [start, start + fade],
+    index === 0 ? [0, -10] : [10, 0]
+  );
 
   return (
-    <div className="flex min-h-screen items-start">
-      <div className="sticky top-0 flex h-screen w-full items-center">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 lg:flex-row lg:items-center lg:gap-20">
-          <motion.div className="flex-1" style={{ opacity, scale }}>
-            <h3 className="text-3xl font-bold lg:text-4xl">{item.title}</h3>
-            <div className="mt-4 text-lg text-muted">{item.description}</div>
-          </motion.div>
-          <motion.div className="flex-1" style={{ opacity }}>
-            {item.content}
-          </motion.div>
-        </div>
-      </div>
-    </div>
+    <motion.div
+      className={index === 0 ? "relative" : "absolute inset-x-0 top-0"}
+      style={{ opacity, y }}
+    >
+      {children}
+    </motion.div>
   );
 }

@@ -4,12 +4,14 @@ export interface Client {
 }
 
 export const clients: Client[] = [
-  { name: "Acme Corp", logo: "Acme" },
-  { name: "Quantum Labs", logo: "Quantum" },
-  { name: "Nexus Finance", logo: "Nexus" },
-  { name: "Vertex AI", logo: "Vertex" },
-  { name: "Block Protocol", logo: "Block" },
-  { name: "Cipher Systems", logo: "Cipher" },
-  { name: "Aether Tech", logo: "Aether" },
+  { name: "QuantumFi Labs", logo: "QuantumFi" },
+  { name: "Meridian Protocol", logo: "Meridian" },
+  { name: "Vertex Medical", logo: "Vertex" },
   { name: "Prism Digital", logo: "Prism" },
+  { name: "Aether Technologies", logo: "Aether" },
+  { name: "Cipher Systems", logo: "Cipher" },
+  { name: "Block Protocol", logo: "Block" },
+  { name: "Nexus Finance", logo: "Nexus" },
+  { name: "Arcane Labs", logo: "Arcane" },
+  { name: "Helix Ventures", logo: "Helix" },
 ];

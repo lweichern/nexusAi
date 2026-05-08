@@ -1,0 +1,35 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/><stop offset="100%" stop-color="#0d0a14"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg6)"/>
+  <!-- Two chain circles -->
+  <circle cx="180" cy="200" r="80" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="420" cy="200" r="80" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/>
+  <!-- Bridge connection -->
+  <g stroke="#00d4ff" stroke-width="1" opacity="0.6" stroke-dasharray="8,4">
+    <line x1="260" y1="180" x2="340" y2="180"/>
+    <line x1="260" y1="200" x2="340" y2="200"/>
+    <line x1="260" y1="220" x2="340" y2="220"/>
+  </g>
+  <!-- Arrow heads -->
+  <polygon points="335,175 345,180 335,185" fill="#00d4ff" opacity="0.6"/>
+  <polygon points="265,195 255,200 265,205" fill="#00d4ff" opacity="0.6"/>
+  <polygon points="335,215 345,220 335,225" fill="#00d4ff" opacity="0.6"/>
+  <!-- Chain labels -->
+  <text x="180" y="205" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="12" opacity="0.5">ETH</text>
+  <text x="420" y="205" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="12" opacity="0.5">SOL</text>
+  <!-- Orbiting dots -->
+  <g fill="#00d4ff" opacity="0.3">
+    <circle cx="180" cy="120" r="4"/><circle cx="120" cy="160" r="3"/><circle cx="240" cy="240" r="3"/>
+    <circle cx="420" cy="120" r="4"/><circle cx="360" cy="240" r="3"/><circle cx="480" cy="160" r="3"/>
+  </g>
+  <!-- Token symbols -->
+  <g fill="none" stroke="#222" stroke-width="0.5">
+    <circle cx="150" cy="150" r="12"/><circle cx="210" cy="250" r="12"/>
+    <circle cx="390" cy="150" r="12"/><circle cx="450" cy="250" r="12"/>
+  </g>
+  <text x="300" y="340" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="14" opacity="0.6">OmnisBridge</text>
+</svg>

@@ -46,8 +46,11 @@ export function AnimatedBeamNetwork({
 
   const initNodes = useCallback(
     (width: number, height: number) => {
+      const isMobile = width < 768;
+      const count = isMobile ? Math.min(nodeCount, 20) : nodeCount;
+      const dist = isMobile ? Math.min(connectionDistance, 150) : connectionDistance;
       const nodes: Node[] = [];
-      for (let i = 0; i < nodeCount; i++) {
+      for (let i = 0; i < count; i++) {
         nodes.push({
           x: Math.random() * width,
           y: Math.random() * height,
@@ -63,7 +66,7 @@ export function AnimatedBeamNetwork({
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
-          if (Math.sqrt(dx * dx + dy * dy) < connectionDistance) {
+          if (Math.sqrt(dx * dx + dy * dy) < dist) {
             beams.push({
               from: i,
               to: j,
@@ -108,8 +111,21 @@ export function AnimatedBeamNetwork({
       mouseRef.current = { x: -1000, y: -1000 };
     }
 
+    function handleTouchMove(e: TouchEvent) {
+      const touch = e.touches[0];
+      if (!touch) return;
+      const rect = canvas!.getBoundingClientRect();
+      mouseRef.current = { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+    }
+
+    function handleTouchEnd() {
+      mouseRef.current = { x: -1000, y: -1000 };
+    }
+
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
+    canvas.addEventListener("touchmove", handleTouchMove, { passive: true });
+    canvas.addEventListener("touchend", handleTouchEnd);
 
     const beamMap = new Map<string, Beam>();
 
@@ -126,9 +142,10 @@ export function AnimatedBeamNetwork({
         const dx = mouse.x - node.x;
         const dy = mouse.y - node.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150 && dist > 0) {
-          node.vx += (dx / dist) * 0.02;
-          node.vy += (dy / dist) * 0.02;
+        if (dist < 250 && dist > 0) {
+          const force = 0.06 * (1 - dist / 250);
+          node.vx += (dx / dist) * force;
+          node.vy += (dy / dist) * force;
         }
 
         node.x += node.vx;
@@ -224,6 +241,8 @@ export function AnimatedBeamNetwork({
       window.removeEventListener("resize", resize);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
+      canvas.removeEventListener("touchmove", handleTouchMove);
+      canvas.removeEventListener("touchend", handleTouchEnd);
     };
   }, [initNodes, connectionDistance, accentColor]);
 

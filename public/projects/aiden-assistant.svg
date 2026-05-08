@@ -1,0 +1,31 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/><stop offset="100%" stop-color="#0a1210"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg7)"/>
+  <!-- Chat interface -->
+  <rect x="120" y="60" width="360" height="280" rx="12" fill="none" stroke="#222" stroke-width="1"/>
+  <!-- Chat bubbles -->
+  <rect x="150" y="90" width="180" height="36" rx="12" fill="#1a1a2e"/>
+  <text x="165" y="113" fill="#666" font-family="system-ui" font-size="11">How can I help you today?</text>
+  <rect x="270" y="140" width="180" height="36" rx="12" fill="#00d4ff" opacity="0.15"/>
+  <text x="285" y="163" fill="#00d4ff" font-family="system-ui" font-size="11" opacity="0.7">Analyze Q4 revenue data</text>
+  <rect x="150" y="190" width="200" height="50" rx="12" fill="#1a1a2e"/>
+  <text x="165" y="213" fill="#666" font-family="system-ui" font-size="11">Revenue increased 23% QoQ.</text>
+  <text x="165" y="228" fill="#666" font-family="system-ui" font-size="11">Top segment: Enterprise SaaS</text>
+  <!-- Input bar -->
+  <rect x="140" y="290" width="320" height="36" rx="18" fill="none" stroke="#333" stroke-width="1"/>
+  <text x="165" y="313" fill="#444" font-family="system-ui" font-size="11">Ask anything...</text>
+  <!-- AI sparkle -->
+  <g transform="translate(290, 30)" fill="#00d4ff" opacity="0.4">
+    <polygon points="10,0 12,7 20,10 12,13 10,20 8,13 0,10 8,7"/>
+  </g>
+  <!-- Sound waves -->
+  <g stroke="#00d4ff" stroke-width="1" opacity="0.2" fill="none">
+    <path d="M520,180 Q530,160 520,140"/><path d="M530,185 Q545,155 530,125"/>
+    <path d="M80,180 Q70,160 80,140"/><path d="M70,185 Q55,155 70,125"/>
+  </g>
+  <text x="300" y="380" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="14" opacity="0.6">AIDEN</text>
+</svg>

@@ -21,7 +21,7 @@ export function FeaturedWork() {
             modern web.
           </p>
         </BlurFade>
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
           {featured.map((project, index) => (
             <BlurFade
               key={project.id}
@@ -69,7 +69,7 @@ export function FeaturedWork() {
                       </span>
                     ))}
                   </div>
-                  <h3 className="mt-2 text-xl font-bold group-hover:text-accent transition-colors">
+                  <h3 className="mt-2 text-lg font-bold transition-colors group-hover:text-accent sm:text-xl">
                     {project.title}
                   </h3>
                   <p className="mt-1 text-sm text-accent">{project.client}</p>

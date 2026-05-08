@@ -10,13 +10,13 @@ export function Hero() {
   return (
     <section className="relative flex h-screen w-full items-center justify-center overflow-hidden">
       <AnimatedBeamNetwork className="opacity-60" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50" />
-      <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50" />
+      <div className="pointer-events-none relative z-10 flex flex-col items-center gap-6 px-4 text-center">
         <TextGenerateEffect
           words="NexusAI"
-          className="text-6xl font-bold tracking-tight md:text-8xl"
+          className="text-4xl font-bold tracking-tight sm:text-6xl md:text-8xl"
         />
-        <div className="flex min-h-[2em] items-center text-xl text-muted md:text-2xl">
+        <div className="flex min-h-[1.5em] items-center text-lg text-muted sm:min-h-[2em] sm:text-xl md:text-2xl">
           <FlipWords
             words={["AI Solutions", "Web3 Development", "Digital Products"]}
             className="text-accent font-semibold"
@@ -25,7 +25,7 @@ export function Hero() {
         <p className="max-w-md text-muted">
           We build cutting-edge technology for forward-thinking companies.
         </p>
-        <Link href="/contact">
+        <Link href="/contact" className="pointer-events-auto">
           <ShimmerButton className="mt-4">
             Get in Touch
             <svg

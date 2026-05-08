@@ -1,0 +1,35 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0a"/><stop offset="100%" stop-color="#12090f"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg4)"/>
+  <!-- 3D perspective grid -->
+  <g stroke="#222" stroke-width="0.5">
+    <line x1="300" y1="100" x2="0" y2="400"/><line x1="300" y1="100" x2="600" y2="400"/>
+    <line x1="300" y1="100" x2="100" y2="400"/><line x1="300" y1="100" x2="500" y2="400"/>
+    <line x1="300" y1="100" x2="200" y2="400"/><line x1="300" y1="100" x2="400" y2="400"/>
+  </g>
+  <g stroke="#222" stroke-width="0.5">
+    <line x1="120" y1="220" x2="480" y2="220"/><line x1="60" y1="280" x2="540" y2="280"/>
+    <line x1="0" y1="340" x2="600" y2="340"/>
+  </g>
+  <!-- NFT frames -->
+  <g fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5">
+    <rect x="140" y="160" width="80" height="80" rx="4"/>
+    <rect x="260" y="140" width="80" height="100" rx="4"/>
+    <rect x="380" y="160" width="80" height="80" rx="4"/>
+  </g>
+  <!-- Abstract art in frames -->
+  <circle cx="180" cy="200" r="20" fill="#00d4ff" opacity="0.15"/>
+  <rect x="280" y="160" width="40" height="60" fill="#00d4ff" opacity="0.1" rx="2"/>
+  <polygon points="420,180 440,220 400,220" fill="#00d4ff" opacity="0.15"/>
+  <!-- Floating diamonds -->
+  <g fill="#00d4ff" opacity="0.2">
+    <polygon points="100,100 110,110 100,120 90,110"/>
+    <polygon points="500,80 510,90 500,100 490,90"/>
+    <polygon points="450,300 460,310 450,320 440,310"/>
+  </g>
+  <text x="300" y="370" text-anchor="middle" fill="#00d4ff" font-family="monospace" font-size="14" opacity="0.6">MetaGallery</text>
+</svg>

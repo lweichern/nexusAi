@@ -18,10 +18,14 @@ export function Spotlight({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
 
-  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
+  function updatePosition(clientX: number, clientY: number) {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setPosition({ x: clientX - rect.left, y: clientY - rect.top });
+  }
+
+  function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
+    updatePosition(e.clientX, e.clientY);
   }
 
   return (
@@ -31,6 +35,14 @@ export function Spotlight({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
+      onTouchMove={(e) => {
+        const touch = e.touches[0];
+        if (touch) {
+          updatePosition(touch.clientX, touch.clientY);
+          if (!isVisible) setIsVisible(true);
+        }
+      }}
+      onTouchEnd={() => setIsVisible(false)}
     >
       <div
         className="pointer-events-none absolute -inset-px z-0 rounded-[inherit] opacity-0 transition-opacity duration-500"

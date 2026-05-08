@@ -36,7 +36,7 @@ export function ServicesOverview() {
             End-to-end solutions across the full spectrum of modern technology.
           </p>
         </BlurFade>
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-16 sm:gap-8 md:grid-cols-3">
           {services.map((service, index) => (
             <BlurFade key={service.id} delay={index * 0.15}>
               <Card3DContainer className="w-full">

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const socialLinks = [
-  { name: "GitHub", href: "#" },
-  { name: "X", href: "#" },
-  { name: "LinkedIn", href: "#" },
+  { name: "GitHub", href: "https://github.com" },
+  { name: "X", href: "https://x.com" },
+  { name: "LinkedIn", href: "https://linkedin.com" },
 ];
 
 const navLinks = [
@@ -15,7 +15,7 @@ const navLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-card-border px-6 py-12">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:gap-6 md:flex-row">
         <div className="flex items-center gap-2">
           <span className="font-mono text-sm font-bold text-accent">
             NexusAI
@@ -37,6 +37,8 @@ export function Footer() {
             <a
               key={link.name}
               href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-muted transition-colors hover:text-foreground"
             >
               {link.name}

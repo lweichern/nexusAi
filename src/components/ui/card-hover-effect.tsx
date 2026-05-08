@@ -18,13 +18,15 @@ export function CardHoverEffect({ items, className }: CardHoverEffectProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4", className)}>
+    <div className={cn("grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3", className)}>
       {items.map((item, idx) => (
         <div
           key={item.id}
           className="group relative block h-full w-full p-2"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
+          onTouchStart={() => setHoveredIndex(idx)}
+          onTouchEnd={() => setHoveredIndex(null)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
@@ -40,7 +42,7 @@ export function CardHoverEffect({ items, className }: CardHoverEffectProps) {
               />
             )}
           </AnimatePresence>
-          <div className="relative z-10 h-full overflow-hidden rounded-xl border border-card-border bg-card p-6">
+          <div className="relative z-10 h-full overflow-hidden rounded-xl border border-card-border bg-card p-4 sm:p-6">
             {item.content}
           </div>
         </div>
