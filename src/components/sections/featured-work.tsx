@@ -28,7 +28,7 @@ export function FeaturedWork() {
               delay={index * 0.1}
               className={featured.length === 1 ? "md:col-span-2 lg:col-span-3 max-w-2xl mx-auto w-full" : ""}
             >
-              <Link href="/work" className="group block">
+              <Link href={`/work/${project.id}`} className="group block">
                 <CanvasRevealEffect
                   className="aspect-video w-full rounded-xl border border-card-border bg-card"
                   revealContent={

@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { CardHoverEffect, type HoverCardItem } from "@/components/ui/card-hover-effect";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Footer } from "@/components/sections/footer";
 import { projects, categories } from "@/data/projects";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 
 const stats = [
   { label: "Projects Delivered", value: "50+" },
@@ -17,44 +17,12 @@ const stats = [
 
 export default function WorkPage() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const filtered =
     activeCategory === "all"
       ? projects
       : projects.filter((p) => p.category === activeCategory);
-
-  const items: HoverCardItem[] = filtered.map((project) => ({
-    id: project.id,
-    content: (
-      <div>
-        <div className="aspect-video overflow-hidden rounded-lg bg-background">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="mt-4 flex items-center justify-between">
-          <div className="flex flex-wrap gap-2">
-            {project.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-card-border px-3 py-0.5 text-xs text-muted"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <span className="font-mono text-xs text-muted">{project.year}</span>
-        </div>
-        <h3 className="mt-3 text-lg font-bold">{project.title}</h3>
-        <p className="mt-1 text-sm text-accent">{project.client}</p>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          {project.description}
-        </p>
-      </div>
-    ),
-  }));
 
   return (
     <main>
@@ -102,9 +70,87 @@ export default function WorkPage() {
             </div>
           </BlurFade>
 
-          <BlurFade delay={0.3}>
-            <CardHoverEffect items={items} className="mt-8" />
-          </BlurFade>
+          <motion.div layout className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative p-2"
+                  onMouseEnter={() => setHoveredIndex(idx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  onTouchStart={() => setHoveredIndex(idx)}
+                  onTouchEnd={() => setHoveredIndex(null)}
+                >
+                  <AnimatePresence>
+                    {hoveredIndex === idx && (
+                      <motion.span
+                        className="absolute inset-0 block rounded-2xl bg-accent/10"
+                        layoutId="work-hover-bg"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, transition: { duration: 0.15 } }}
+                        exit={{ opacity: 0, transition: { duration: 0.15, delay: 0.2 } }}
+                      />
+                    )}
+                  </AnimatePresence>
+                  <Link
+                    href={`/work/${project.id}`}
+                    className="group relative z-10 block overflow-hidden rounded-xl border border-card-border bg-card p-4 sm:p-6"
+                  >
+                    <div className="aspect-video overflow-hidden rounded-lg bg-background">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-4 flex items-center justify-between">
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-card-border px-3 py-0.5 text-xs text-muted"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="font-mono text-xs text-muted">
+                        {project.year}
+                      </span>
+                    </div>
+                    <h3 className="mt-3 text-lg font-bold transition-colors group-hover:text-accent">
+                      {project.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-accent">{project.client}</p>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
+                      {project.description}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent opacity-0 transition-opacity group-hover:opacity-100">
+                      View Case Study
+                      <svg
+                        className="h-3 w-3"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
